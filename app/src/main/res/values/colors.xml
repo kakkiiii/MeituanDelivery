@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 品牌色：美团黄 + 美团青 -->
+    <color name="brand_yellow">#FFD100</color>
+    <color name="brand_yellow_dark">#F2B900</color>
+    <color name="brand_teal">#00B5A5</color>
+
+    <color name="primary">#FFD100</color>
+    <color name="primary_dark">#F2B900</color>
+    <color name="accent">#00B5A5</color>
+
+    <!-- 黄色头部上的深色文字（保证对比度） -->
+    <color name="on_yellow">#33230A</color>
+    <color name="on_yellow_secondary">#8A6A33</color>
+
+    <!-- 中性色 -->
+    <color name="bg">#F5F6F8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="text_primary">#1F1F1F</color>
+    <color name="text_secondary">#666666</color>
+    <color name="text_hint">#9C9C9C</color>
+    <color name="divider">#F0F0F0</color>
+    <color name="gray_bg">#F4F5F7</color>
+    <color name="dark_bar">#262A33</color>
+
+    <!-- 功能色 -->
+    <color name="orange">#FF4B33</color>
+    <color name="red">#F5222D</color>
+    <color name="green">#00B578</color>
+    <color name="blue">#1677FF</color>
+
+    <!-- 浅色底 -->
+    <color name="yellow_light">#FFF6D9</color>
+    <color name="teal_light">#E3F7F5</color>
+    <color name="red_light">#FFF1EF</color>
+</resources>

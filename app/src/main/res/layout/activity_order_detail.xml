@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolbarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="订单详情"
+        app:navigationIcon="@drawable/ic_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 状态头部 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@drawable/bg_header_gradient">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="待接单"
+                    android:textColor="@color/on_yellow"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="感谢信任，美食正在路上"
+                    android:textColor="@color/on_yellow_secondary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 店铺信息 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:background="@color/white">
+
+                <View
+                    android:id="@+id/img"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp" />
+
+                <TextView
+                    android:id="@+id/tv_restaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="店铺名"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- 菜品清单 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingVertical="8dp"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- 费用明细 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView style="@style/LabelText" android:text="商品总价" />
+                    <TextView
+                        android:id="@+id/tv_goods_total"
+                        style="@style/ValueText"
+                        android:text="¥0.00" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    <TextView style="@style/LabelText" android:text="配送费" />
+                    <TextView
+                        android:id="@+id/tv_delivery"
+                        style="@style/ValueText"
+                        android:text="¥0.00" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/coupon_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    <TextView style="@style/LabelText" android:text="优惠" />
+                    <TextView
+                        android:id="@+id/tv_coupon"
+                        style="@style/ValueText"
+                        android:textColor="@color/orange"
+                        android:text="-¥0.00" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="@color/divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView style="@style/LabelText" android:text="实付" android:textStyle="bold" android:textColor="@color/text_primary" />
+                    <TextView
+                        android:id="@+id/tv_payable"
+                        style="@style/ValueText"
+                        android:textColor="@color/orange"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:text="¥0.00" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 订单信息 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/white"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/LabelText"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0"
+                    android:text="订单信息"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="5dp"
+                    android:text="订单号\n下单时间\n备注\n地址\n配送方式"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/btn_action"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center"
+        android:text="取消订单"
+        android:textColor="@color/on_yellow"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:background="@color/primary"
+        android:visibility="gone" />
+</LinearLayout>

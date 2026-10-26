@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="12dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/bg_card">
+
+    <View
+        android:id="@+id/img"
+        android:layout_width="52dp"
+        android:layout_height="52dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="菜品名"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="¥0.00 · 月售0"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:paddingHorizontal="16dp"
+        android:gravity="center"
+        android:text="下架"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:background="@drawable/bg_btn_teal" />
+</LinearLayout>

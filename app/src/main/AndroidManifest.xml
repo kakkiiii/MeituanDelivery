@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MeituanDelivery">
+
+        <!-- 角色选择入口 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 顾客端 -->
+        <activity android:name=".customer.CustomerMainActivity" />
+        <activity android:name=".customer.RestaurantActivity" />
+        <activity android:name=".customer.CartActivity" />
+        <activity android:name=".customer.ConfirmOrderActivity" />
+        <activity android:name=".customer.SearchActivity" />
+        <activity android:name=".customer.AddressActivity" />
+        <activity android:name=".customer.CouponActivity" />
+        <activity android:name=".customer.ReviewActivity" />
+        <activity android:name=".customer.OrderDetailActivity" />
+
+        <!-- 商家端 -->
+        <activity android:name=".merchant.MerchantMainActivity" />
+        <activity android:name=".merchant.MerchantOrderActivity" />
+        <activity android:name=".merchant.DishManageActivity" />
+        <activity android:name=".merchant.BusinessSettingActivity" />
+    </application>
+
+</manifest>
