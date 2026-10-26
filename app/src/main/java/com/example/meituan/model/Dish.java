@@ -12,10 +12,11 @@ public class Dish {
     public int monthlySales;      // 月售
     public String category;       // 分类
     public boolean available;     // 是否在售
-    public int imageColor;        // 用颜色占位代替真实图片
+    public int imageColor;        // 图片加载前的占位底色
+    public String image;          // 真实菜品照片（assets 相对路径，如 food/chicken_1.jpg）
 
     public Dish(int id, int restaurantId, String name, double price, String description,
-                int monthlySales, String category, boolean available, int imageColor) {
+                int monthlySales, String category, boolean available, int imageColor, String image) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.name = name;
@@ -25,5 +26,6 @@ public class Dish {
         this.category = category;
         this.available = available;
         this.imageColor = imageColor;
+        this.image = image;
     }
 }

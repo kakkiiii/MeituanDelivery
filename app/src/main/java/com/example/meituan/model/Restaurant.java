@@ -15,11 +15,12 @@ public class Restaurant {
     public String category;       // 分类（快餐/奶茶/正餐...）
     public String notice;         // 公告
     public boolean open;          // 是否营业
-    public int imageColor;        // 颜色占位
+    public int imageColor;        // 图片加载前的占位底色
+    public String image;          // 真实店铺照片（assets 相对路径）
 
     public Restaurant(int id, String name, double rating, int monthlySales, double deliveryFee,
                       int deliveryTime, double minPrice, double distance, String category,
-                      String notice, boolean open, int imageColor) {
+                      String notice, boolean open, int imageColor, String image) {
         this.id = id;
         this.name = name;
         this.rating = rating;
@@ -32,5 +33,6 @@ public class Restaurant {
         this.notice = notice;
         this.open = open;
         this.imageColor = imageColor;
+        this.image = image;
     }
 }

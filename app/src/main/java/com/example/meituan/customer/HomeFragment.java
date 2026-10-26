@@ -52,6 +52,9 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.search_bar).setOnClickListener(v ->
                 startActivity(new Intent(getActivity(), SearchActivity.class)));
 
+        view.findViewById(R.id.ai_entry).setOnClickListener(v ->
+                startActivity(new Intent(getActivity(), AiChatActivity.class)));
+
         categoryContainer = view.findViewById(R.id.category_container);
         buildCategories();
 

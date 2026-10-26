@@ -3,6 +3,7 @@ package com.example.meituan.customer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +17,7 @@ import com.example.meituan.data.DataStore;
 import com.example.meituan.model.Dish;
 import com.example.meituan.model.Order;
 import com.example.meituan.model.Restaurant;
-import com.example.meituan.util.UiKit;
+import com.example.meituan.util.Images;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -55,8 +56,8 @@ public class RestaurantActivity extends AppCompatActivity {
         toolbar.setTitle(restaurant.name);
         toolbar.setNavigationOnClickListener(v -> finish());
 
-        View img = findViewById(R.id.img);
-        img.setBackground(UiKit.roundRect(this, restaurant.imageColor, 12));
+        ImageView img = findViewById(R.id.img);
+        Images.load(img, restaurant.image, restaurant.imageColor);
         TextView tvRating = findViewById(R.id.tv_rating);
         TextView tvMeta = findViewById(R.id.tv_meta);
         TextView tvNotice = findViewById(R.id.tv_notice);

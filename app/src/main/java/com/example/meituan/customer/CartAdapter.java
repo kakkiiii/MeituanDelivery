@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.meituan.R;
 import com.example.meituan.model.Dish;
 import com.example.meituan.model.Order;
-import com.example.meituan.util.UiKit;
+import com.example.meituan.util.Images;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
     public void onBindViewHolder(@NonNull VH h, int position) {
         Order.OrderItem it = data.get(position);
         Dish d = it.dish;
-        h.img.setBackground(UiKit.roundRect(context, d.imageColor, 8));
+        Images.load(h.img, d.image, d.imageColor);
         h.tvName.setText(d.name);
         h.tvPrice.setText(String.format(Locale.CHINA, "¥%.2f", d.price));
         h.tvCount.setText(String.valueOf(it.count));
@@ -69,7 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
     }
 
     static class VH extends RecyclerView.ViewHolder {
-        View img;
+        ImageView img;
         TextView tvName, tvPrice, tvCount, btnPlus, btnMinus;
 
         VH(@NonNull View itemView) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.meituan.R;
 import com.example.meituan.data.DataStore;
 import com.example.meituan.model.Dish;
-import com.example.meituan.util.UiKit;
+import com.example.meituan.util.Images;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @Override
     public void onBindViewHolder(@NonNull VH h, int position) {
         Dish d = data.get(position);
-        h.img.setBackground(UiKit.roundRect(context, d.imageColor, 8));
+        Images.load(h.img, d.image, d.imageColor);
         h.tvName.setText(d.name);
         h.tvRestaurant.setText(store.getRestaurant(d.restaurantId).name);
         h.tvPrice.setText(String.format(Locale.CHINA, "¥%.2f", d.price));
@@ -68,7 +69,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     }
 
     static class VH extends RecyclerView.ViewHolder {
-        View img;
+        ImageView img;
         TextView tvName, tvRestaurant, tvPrice, btnAdd;
 
         VH(@NonNull View itemView) {

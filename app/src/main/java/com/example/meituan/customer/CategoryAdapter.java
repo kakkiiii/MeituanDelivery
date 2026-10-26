@@ -53,11 +53,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.VH> {
         h.tv.setText(cat);
         boolean sel = position == selected;
         h.tv.setTextColor(sel
-                ? ContextCompat.getColor(context, R.color.white)
+                ? ContextCompat.getColor(context, R.color.text_primary)
                 : ContextCompat.getColor(context, R.color.text_secondary));
-        h.tv.setBackgroundColor(sel
-                ? ContextCompat.getColor(context, R.color.brand_teal)
+        h.tv.setTypeface(null, sel ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
+        h.itemView.setBackgroundColor(sel
+                ? ContextCompat.getColor(context, R.color.white)
                 : ContextCompat.getColor(context, R.color.gray_bg));
+        h.indicator.setVisibility(sel ? View.VISIBLE : View.INVISIBLE);
         h.itemView.setOnClickListener(v -> {
             selected = position;
             notifyDataSetChanged();
@@ -72,10 +74,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.VH> {
 
     static class VH extends RecyclerView.ViewHolder {
         TextView tv;
+        View indicator;
 
         VH(@NonNull View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv_category);
+            indicator = itemView.findViewById(R.id.indicator);
         }
     }
 }

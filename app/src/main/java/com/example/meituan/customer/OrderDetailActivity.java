@@ -3,6 +3,7 @@ package com.example.meituan.customer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.meituan.R;
 import com.example.meituan.data.DataStore;
 import com.example.meituan.model.Order;
-import com.example.meituan.util.UiKit;
+import com.example.meituan.util.Images;
 
 import java.util.Locale;
 
@@ -43,8 +44,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
 
-        View img = findViewById(R.id.img);
-        img.setBackground(UiKit.roundRect(this, order.restaurant.imageColor, 8));
+        ImageView img = findViewById(R.id.img);
+        Images.load(img, order.restaurant.image, order.restaurant.imageColor);
         TextView tvRestaurant = findViewById(R.id.tv_restaurant);
         tvRestaurant.setText(order.restaurant.name);
 

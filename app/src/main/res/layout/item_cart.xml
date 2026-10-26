@@ -7,10 +7,13 @@
     android:layout_marginTop="10dp"
     android:background="@drawable/bg_card">
 
-    <View
+    <ImageView
         android:id="@+id/img"
-        android:layout_width="52dp"
-        android:layout_height="52dp" />
+        android:scaleType="centerCrop"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/bg_img_round"
+        android:clipToOutline="true" />
 
     <LinearLayout
         android:layout_width="0dp"

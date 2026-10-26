@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="12dp"
         android:orientation="vertical">
 
         <TextView
@@ -51,35 +51,38 @@
             android:layout_marginTop="6dp"
             android:text="¥0.00"
             android:textColor="@color/orange"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <FrameLayout
-        android:layout_width="96dp"
-        android:layout_height="108dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <View
+        <ImageView
             android:id="@+id/img"
-            android:layout_width="88dp"
-            android:layout_height="88dp"
-            android:layout_gravity="top|end" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/bg_img_round"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/btn_minus"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:gravity="center"
                 android:text="−"
                 android:textColor="@color/text_secondary"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:background="@drawable/bg_circle_gray"
                 android:visibility="gone" />
 
@@ -98,12 +101,12 @@
 
             <TextView
                 android:id="@+id/btn_plus"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:gravity="center"
                 android:text="+"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:background="@drawable/bg_circle_teal" />
         </LinearLayout>

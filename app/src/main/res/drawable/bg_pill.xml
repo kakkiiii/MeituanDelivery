@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 状态胶囊：浅灰底，文字颜色由代码控制 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/gray_bg" />
+    <corners android:radius="10dp" />
+</shape>

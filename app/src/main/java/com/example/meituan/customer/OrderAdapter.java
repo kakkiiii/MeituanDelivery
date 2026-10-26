@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meituan.R;
 import com.example.meituan.model.Order;
+import com.example.meituan.util.Images;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.VH> {
         h.tvItems.setText(o.itemsSummary());
         h.tvTotal.setText(String.format(Locale.CHINA, "¥%.2f", o.payable));
         h.tvTime.setText(o.createTime);
+        Images.load(h.img, o.restaurant.image, o.restaurant.imageColor, 10);
 
         if (o.status == Order.STATUS_DELIVERED) {
             h.btnPrimary.setVisibility(View.VISIBLE);
@@ -94,10 +97,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.VH> {
     }
 
     static class VH extends RecyclerView.ViewHolder {
+        ImageView img;
         TextView tvRestaurant, tvStatus, tvItems, tvTotal, tvTime, btnPrimary, btnDetail;
 
         VH(@NonNull View itemView) {
             super(itemView);
+            img = itemView.findViewById(R.id.img);
             tvRestaurant = itemView.findViewById(R.id.tv_restaurant);
             tvStatus = itemView.findViewById(R.id.tv_status);
             tvItems = itemView.findViewById(R.id.tv_items);

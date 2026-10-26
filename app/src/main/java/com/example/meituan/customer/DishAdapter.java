@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meituan.R;
 import com.example.meituan.model.Dish;
-import com.example.meituan.util.UiKit;
+import com.example.meituan.util.Images;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.VH> {
         h.tvDesc.setText(d.description);
         h.tvSales.setText("月售 " + d.monthlySales);
         h.tvPrice.setText(String.format(Locale.CHINA, "¥%.2f", d.price));
-        h.img.setBackground(UiKit.roundRect(context, d.imageColor, 8));
+        Images.load(h.img, d.image, d.imageColor);
 
         int count = listener.getCount(d);
         if (count > 0) {
@@ -81,7 +82,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.VH> {
 
     static class VH extends RecyclerView.ViewHolder {
         TextView tvName, tvDesc, tvSales, tvPrice, btnMinus, btnPlus, tvCount;
-        View img;
+        ImageView img;
 
         VH(@NonNull View itemView) {
             super(itemView);

@@ -89,6 +89,29 @@ public class DataStore {
         return null;
     }
 
+    /**
+     * 生成给 AI 的商家/菜品上下文（真实数据，供 DeepSeek 推荐）
+     */
+    public String aiMenuContext() {
+        StringBuilder sb = new StringBuilder();
+        for (Restaurant r : restaurants) {
+            sb.append("[").append(r.id).append("]").append(r.name)
+                    .append("|").append(r.category)
+                    .append("|起送").append((long) r.minPrice).append("元\n");
+            sb.append("菜品:");
+            int n = 0;
+            for (Dish d : dishes) {
+                if (d.restaurantId != r.id) continue;
+                if (n > 0) sb.append(", ");
+                sb.append(d.id).append(".").append(d.name)
+                        .append("|").append(String.format(Locale.CHINA, "%.1f", d.price));
+                n++;
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
     public List<Dish> searchDishes(String keyword) {
         List<Dish> result = new ArrayList<>();
         for (Dish d : dishes) {
