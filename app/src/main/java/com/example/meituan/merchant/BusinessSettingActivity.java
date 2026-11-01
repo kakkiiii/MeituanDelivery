@@ -26,6 +26,10 @@ public class BusinessSettingActivity extends AppCompatActivity {
 
         store = DataStore.getInstance();
         restaurant = store.getRestaurant(DataStore.MERCHANT_RESTAURANT_ID);
+        if (restaurant == null) {
+            finish();
+            return;
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());

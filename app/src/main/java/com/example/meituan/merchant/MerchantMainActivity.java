@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.meituan.MainActivity;
 import com.example.meituan.R;
@@ -27,6 +28,10 @@ public class MerchantMainActivity extends AppCompatActivity {
 
         store = DataStore.getInstance();
         restaurant = store.getRestaurant(DataStore.MERCHANT_RESTAURANT_ID);
+        if (restaurant == null) {
+            finish();
+            return;
+        }
 
         findViewById(R.id.entry_orders).setOnClickListener(v ->
                 startActivity(new Intent(this, MerchantOrderActivity.class)));
@@ -46,15 +51,15 @@ public class MerchantMainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (restaurant == null) return;   // onCreate 中 finish() 后仍会回调
         TextView tvShop = findViewById(R.id.tv_shop_name);
         tvShop.setText(restaurant.name);
         TextView tvOpen = findViewById(R.id.tv_open_status);
         tvOpen.setText(restaurant.open ? "营业中" : "休息中");
         tvOpen.setBackgroundResource(restaurant.open
                 ? R.drawable.bg_btn_teal : R.drawable.bg_btn_gray);
-        tvOpen.setTextColor(restaurant.open
-                ? getResources().getColor(android.R.color.white)
-                : getResources().getColor(R.color.text_secondary));
+        tvOpen.setTextColor(ContextCompat.getColor(this,
+                restaurant.open ? android.R.color.white : R.color.text_secondary));
         TextView tvToday = findViewById(R.id.tv_today);
         tvToday.setText("今日订单：" + store.getMerchantOrders().size() + " 单");
     }

@@ -9,6 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyle"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="@drawable/ic_back" />
@@ -28,6 +29,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_scrim_bottom" />
+
+        <TextView
+            android:id="@+id/tv_closed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="14dp"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:text="店铺休息中，暂不能下单"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:background="@drawable/bg_pill"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,6 +116,7 @@
         android:id="@+id/cart_bar"
         android:layout_width="match_parent"
         android:layout_height="62dp"
+        android:fitsSystemWindows="true"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingHorizontal="16dp"

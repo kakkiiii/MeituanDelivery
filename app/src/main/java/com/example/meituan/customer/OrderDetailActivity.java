@@ -90,6 +90,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     /** 刷新状态展示与底部操作按钮（评价完成返回时同步更新） */
     private void refreshStatus() {
+        if (order == null) return;   // finish() 之后 onResume 仍会回调，避免空订单 NPE
         TextView tvStatus = findViewById(R.id.tv_status);
         tvStatus.setText(Order.statusText(order.status));
 

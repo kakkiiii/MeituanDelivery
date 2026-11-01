@@ -36,6 +36,7 @@ public class RestaurantActivity extends AppCompatActivity {
     private DishAdapter dishAdapter;
     private TextView tvTotal;
     private TextView btnSettle;
+    private TextView tvClosed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,14 @@ public class RestaurantActivity extends AppCompatActivity {
 
             @Override
             public void onAdd(Dish d) {
+                if (!d.available) {
+                    Toast.makeText(RestaurantActivity.this, "该菜品已下架", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!restaurant.open) {
+                    Toast.makeText(RestaurantActivity.this, "店铺休息中，暂不能下单", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 int cartRest = store.cartRestaurantId();
                 if (cartRest != -1 && cartRest != restaurant.id) {
                     Toast.makeText(RestaurantActivity.this,
@@ -108,7 +117,13 @@ public class RestaurantActivity extends AppCompatActivity {
 
         tvTotal = findViewById(R.id.tv_total);
         btnSettle = findViewById(R.id.btn_settle);
+        tvClosed = findViewById(R.id.tv_closed);
+        if (!restaurant.open) tvClosed.setVisibility(View.VISIBLE);
         btnSettle.setOnClickListener(v -> {
+            if (!restaurant.open) {
+                Toast.makeText(this, "店铺休息中，暂不能下单", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (store.cartCount() == 0) {
                 Toast.makeText(this, "请先添加商品", Toast.LENGTH_SHORT).show();
                 return;
@@ -126,14 +141,17 @@ public class RestaurantActivity extends AppCompatActivity {
 
     private Set<String> collectCategories() {
         Set<String> set = new LinkedHashSet<>();
-        for (Dish d : allDishes) set.add(d.category);
+        for (Dish d : allDishes) {
+            if (d.available) set.add(d.category);   // 只保留有在售菜品的分类
+        }
+        if (set.isEmpty()) set.add("全部");         // 极端情况：全部下架时兜底
         return set;
     }
 
     private List<Dish> filterByCategory(String cat) {
         List<Dish> result = new ArrayList<>();
         for (Dish d : allDishes) {
-            if (d.category.equals(cat)) result.add(d);
+            if (d.available && d.category.equals(cat)) result.add(d);
         }
         return result;
     }

@@ -32,6 +32,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private Address selectedAddress;
     private Coupon selectedCoupon;
     private Restaurant restaurant;
+    private boolean submitting = false;
 
     private TextView tvAddress, tvRestaurant, tvCoupon, tvDeliveryFee, tvTotal;
 
@@ -71,10 +72,17 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         EditText etRemark = findViewById(R.id.et_remark);
 
         findViewById(R.id.btn_submit).setOnClickListener(v -> {
+            if (submitting) return;   // 防止连点产生重复/空订单
             if (selectedAddress == null) {
                 Toast.makeText(this, "请选择收货地址", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (store.cartCount() == 0) {
+                Toast.makeText(this, "购物车为空，请先添加商品", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+            submitting = true;
             submitOrder(etRemark.getText().toString().trim());
         });
 
@@ -104,6 +112,10 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
     private void showAddressDialog() {
         List<Address> addresses = store.getAddresses();
+        if (addresses.isEmpty()) {
+            Toast.makeText(this, "还没有收货地址，请到「我的 → 地址管理」添加", Toast.LENGTH_LONG).show();
+            return;
+        }
         String[] items = new String[addresses.size()];
         for (int i = 0; i < addresses.size(); i++) {
             items[i] = addresses.get(i).full();

@@ -82,7 +82,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VH> {
             h.btnGo.setOnClickListener(v -> listener.onGo(m));
         } else {
             h.tvText.setText(m.text);
-            if (m.thinking) h.tvText.setTextColor(0xFF999999);
+            // 复用时必须重置颜色，否则"思考中"的灰色会残留在普通消息上
+            h.tvText.setTextColor(m.thinking ? 0xFF999999 : 0xFF333333);
         }
     }
 

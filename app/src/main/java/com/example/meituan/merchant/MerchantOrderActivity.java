@@ -51,8 +51,10 @@ public class MerchantOrderActivity extends AppCompatActivity {
 
             @Override
             public void onSecondary(Order o) {
-                store.merchantReject(o);
-                Toast.makeText(MerchantOrderActivity.this, "已拒绝该订单", Toast.LENGTH_SHORT).show();
+                boolean ok = store.merchantReject(o);
+                Toast.makeText(MerchantOrderActivity.this,
+                        ok ? "已拒绝该订单" : "当前状态无法拒绝（已接单或已结束）",
+                        Toast.LENGTH_SHORT).show();
                 refresh();
             }
         });

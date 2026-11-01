@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meituan.R;
@@ -61,9 +62,11 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.VH
         h.tvFee.setText(String.format(Locale.CHINA, "起送¥%.0f · 配送¥%.2f", r.minPrice, r.deliveryFee));
         h.tvDistance.setText(String.format(Locale.CHINA, "%.1fkm", r.distance));
         h.tvNotice.setText(r.category);
-        if (!r.open) {
-            h.tvName.setText(r.name + "（休息中）");
-        }
+        // 每次都要赋值：否则复用的 ViewHolder 会残留"（休息中）"后缀
+        h.tvName.setText(r.open ? r.name : r.name + "（休息中）");
+        h.tvName.setTextColor(r.open
+                ? ContextCompat.getColor(context, R.color.text_primary)
+                : ContextCompat.getColor(context, R.color.text_hint));
         h.itemView.setOnClickListener(v -> listener.onClick(r));
     }
 

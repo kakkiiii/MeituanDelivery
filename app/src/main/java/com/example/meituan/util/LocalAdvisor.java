@@ -44,8 +44,10 @@ public class LocalAdvisor {
 
         // 2. 按口味意图加权挑选店铺
         Restaurant target = pickRestaurant(restaurants, q);
+        if (target == null) return null;
         Dish dish = signatureDish(store, target);
         if (dish == null) dish = pickDish(store, target);
+        if (dish == null) return null;
         return target.id + "|" + dish.id + "|" + dish.name + "|" + reason(target, dish);
     }
 
@@ -107,7 +109,9 @@ public class LocalAdvisor {
                 best = r;
             }
         }
-        return best != null ? best : restaurants.get(0);
+        if (best != null) return best;
+        // 全部休息时取第一家兜底；店铺列表为空则返回 null 由上层处理
+        return restaurants.isEmpty() ? null : restaurants.get(0);
     }
 
     /** 从输入中解析预算数字，如"预算30"、"20元"、"30以内" */

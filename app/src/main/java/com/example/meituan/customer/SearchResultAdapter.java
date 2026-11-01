@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.meituan.R;
 import com.example.meituan.data.DataStore;
 import com.example.meituan.model.Dish;
+import com.example.meituan.model.Restaurant;
 import com.example.meituan.util.Images;
 
 import java.util.ArrayList;
@@ -58,7 +59,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         Dish d = data.get(position);
         Images.load(h.img, d.image, d.imageColor);
         h.tvName.setText(d.name);
-        h.tvRestaurant.setText(store.getRestaurant(d.restaurantId).name);
+        Restaurant r = store.getRestaurant(d.restaurantId);
+        h.tvRestaurant.setText(r == null ? "平台商家" : r.name);
         h.tvPrice.setText(String.format(Locale.CHINA, "¥%.2f", d.price));
         h.btnAdd.setOnClickListener(v -> listener.onAdd(d));
     }

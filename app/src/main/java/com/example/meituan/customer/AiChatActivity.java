@@ -34,6 +34,8 @@ public class AiChatActivity extends AppCompatActivity implements ChatAdapter.OnG
     private DataStore store;
     private ChatAdapter adapter;
     private EditText etInput;
+    private final android.os.Handler uiHandler = new android.os.Handler();
+    private Runnable pendingTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,9 +111,16 @@ public class AiChatActivity extends AppCompatActivity implements ChatAdapter.OnG
             });
         } else {
             // 本地模式：短暂延迟模拟思考过程
-            new android.os.Handler(getMainLooper()).postDelayed(
-                    () -> showRecommend(LocalAdvisor.recommend(userText), false), 600);
+            pendingTask = () -> showRecommend(LocalAdvisor.recommend(userText), false);
+            uiHandler.postDelayed(pendingTask, 600);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 避免页面关闭后延时任务回调到已销毁的界面
+        if (pendingTask != null) uiHandler.removeCallbacks(pendingTask);
     }
 
     /** result 格式：restaurantId|dishId|dishName|reason */
@@ -122,10 +131,19 @@ public class AiChatActivity extends AppCompatActivity implements ChatAdapter.OnG
             return;
         }
         String[] p = result.split("\\|", -1);
-        int rid = Integer.parseInt(p[0]);
-        int did = Integer.parseInt(p[1]);
+        int rid, did;
+        try {
+            rid = Integer.parseInt(p[0].trim());
+            did = Integer.parseInt(p[1].trim());
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            adapter.replaceLast(ChatMessage.bot("推荐结果解析失败，换个说法试试？"));
+            scrollBottom();
+            return;
+        }
         String dishName = p.length > 2 ? p[2] : "";
-        String reason = p.length > 3 ? p[3] : "";
+        // 理由里若含 "|"，把剩余部分拼回来，避免被截断
+        String reason = p.length > 3
+                ? String.join("|", java.util.Arrays.copyOfRange(p, 3, p.length)) : "";
 
         Restaurant r = store.getRestaurant(rid);
         Dish d = store.getDish(did);

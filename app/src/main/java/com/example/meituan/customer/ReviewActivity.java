@@ -64,6 +64,10 @@ public class ReviewActivity extends AppCompatActivity {
 
         view.findViewById(R.id.btn_submit).setOnClickListener(v -> {
             int rating = (int) ratingBar.getRating();
+            if (rating < 1) {
+                Toast.makeText(this, "请先打分（至少 1 星）", Toast.LENGTH_SHORT).show();
+                return;
+            }
             String content = etContent.getText().toString().trim();
             if (content.isEmpty()) content = "用户未填写评价";
 

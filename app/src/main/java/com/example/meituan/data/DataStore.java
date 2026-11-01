@@ -112,10 +112,18 @@ public class DataStore {
         return sb.toString();
     }
 
+    /** 搜索：支持菜品名 / 菜品分类 / 店铺名，只返回在售菜品 */
     public List<Dish> searchDishes(String keyword) {
+        String kw = keyword == null ? "" : keyword.trim();
         List<Dish> result = new ArrayList<>();
         for (Dish d : dishes) {
-            if (d.name.contains(keyword) || d.category.contains(keyword)) result.add(d);
+            if (!d.available) continue;
+            Restaurant r = getRestaurant(d.restaurantId);
+            boolean hit = kw.isEmpty()
+                    || d.name.contains(kw)
+                    || d.category.contains(kw)
+                    || (r != null && r.name.contains(kw));
+            if (hit) result.add(d);
         }
         return result;
     }
@@ -139,9 +147,18 @@ public class DataStore {
 
     public void removeAddress(Address a) {
         addresses.remove(a);
+        // 删除的是默认地址时，自动把第一个设为默认，避免出现"没有默认地址"
+        if (a.isDefault) {
+            boolean hasDefault = false;
+            for (Address x : addresses) {
+                if (x.isDefault) { hasDefault = true; break; }
+            }
+            if (!hasDefault && !addresses.isEmpty()) addresses.get(0).isDefault = true;
+        }
     }
 
     public void setDefaultAddress(Address a) {
+        if (a == null || !addresses.contains(a)) return;
         for (Address x : addresses) x.isDefault = false;
         a.isDefault = true;
     }
@@ -199,6 +216,18 @@ public class DataStore {
         cart.clear();
     }
 
+    /** 清理购物车中已被商家下架的菜品，返回清理数量 */
+    public int purgeUnavailableFromCart() {
+        int removed = 0;
+        for (int i = cart.size() - 1; i >= 0; i--) {
+            if (!cart.get(i).dish.available) {
+                cart.remove(i);
+                removed++;
+            }
+        }
+        return removed;
+    }
+
     public int cartCount() {
         int n = 0;
         for (Order.OrderItem it : cart) n += it.count;
@@ -243,6 +272,7 @@ public class DataStore {
     }
 
     public void placeOrder(Order order) {
+        if (order == null || order.items.isEmpty()) return;  // 空购物车不允许下单
         order.id = ++orderSeq;
         order.orderNo = "MT" + System.currentTimeMillis() + (random.nextInt(90) + 10);
         order.status = Order.STATUS_PENDING;

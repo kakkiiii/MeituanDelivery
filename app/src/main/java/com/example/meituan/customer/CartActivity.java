@@ -66,6 +66,14 @@ public class CartActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btn_checkout).setOnClickListener(v -> {
+            // 下单前先剔除商家已下架的商品，避免买到不存在的菜
+            int removed = store.purgeUnavailableFromCart();
+            if (removed > 0) {
+                refresh();
+                Toast.makeText(this, "已移除 " + removed + " 个下架商品，请重新确认",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (store.cartCount() == 0) {
                 Toast.makeText(this, "购物车为空", Toast.LENGTH_SHORT).show();
                 return;
